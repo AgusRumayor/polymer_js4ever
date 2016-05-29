@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
 
 <dom-module id="polymer-app">
   <template>
@@ -47,12 +48,17 @@
       <iron-pages selected="0" id="iron-pages">
           <div>
             <section>
-              <paper-card heading="Card Title" class="car-center">
+              <paper-card class="car-center">
                 <iron-icon icon="face" class="big"></iron-icon>
               </paper-card>
                <paper-card class="car-center">
-                <paper-input label="Input label"></paper-input>
+                <paper-input label="Balance actual" disabled value="$10,000"></paper-input>
               </paper-card>
+               <paper-card heading="Historial" class="car-center">
+               <template is="dom-repeat" items="{{arrayHistorial}}">
+                <paper-material elevation="2">{{item}}</paper-material>
+               </template>
+              </paper-card>              
             </section>
           </div>
           <div>Page Two</div>
@@ -65,11 +71,19 @@
 
       is: 'polymer-app',
 
+      
+
       properties: {
         prop1: {
           type: String,
           value: 'polymer-app',
         },
+
+        arrayHistorial: {
+          type: Array,
+          value: ["a","b"],
+        },
+        
       },
 
       ready: function() {
