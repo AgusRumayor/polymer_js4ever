@@ -7,6 +7,11 @@
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <dom-module id="polymer-app">
   <template>
@@ -26,6 +31,15 @@
       iron-icon:hover {
         fill: var(--google-yellow-700);
       }  
+
+      .section_scroll {
+        width: 100%;
+        height: 300px;
+        @apply(--layout-vertical);
+      }
+      section paper-dialog-scrollable {
+        @apply(--layout-flex);
+      }      
       .car-center {
         width: 100%;
         text-align: center;
@@ -75,7 +89,40 @@
               </paper-card>              
             </section>
           </div>
-          <div>Page Two</div>
+          <div>
+             <section class="section_scroll">
+              <paper-dialog-scrollable>
+               <iron-ajax
+                auto
+                url="http://private-anon-1ad16da62-taskhandler.apiary-mock.com/tasks/latest"
+                handle-as="json"
+                contentType="application/json"
+                last-response="{{tasksRespuesta}}">
+              </iron-ajax>              
+                <iron-image src="[[tasksRespuesta.data.image_url]]"></iron-image>
+              </paper-dialog-scrollable>
+             </section>
+            <section class="section_scroll">
+              <paper-dialog-scrollable>
+              <iron-autogrow-textarea id="txt1" class="car-center" value="{{tasksRespuesta.data.text}}Prueba">
+            </iron-autogrow-textarea>
+              </paper-dialog-scrollable>
+            </section>
+            <section class="car-center">
+              <iron-ajax
+                 
+                id="taskPut"
+                url="http://private-anon-1ad16da62-taskhandler.apiary-mock.com/tasks/5[[tasksRespuesta.data.id]]"
+                method="PUT"
+                handle-as="json"
+                contentType="application/json"
+                last-response="{{putResponsable}}">
+              </iron-ajax>
+
+              <paper-button raised id="enviar">Enviar</paper-button>
+              <paper-button raised id="cancelar">Cancelar</paper-button>
+            </section>
+          </div>
       </iron-pages>
 
   </template>
@@ -101,14 +148,17 @@
       },
 
       ready: function() {
-           /*var tabs = {
-                one: document.querySelector('#paper_tab'),
-                two: document.querySelector('#paper_tab1')
-            };*/
+           var botons = {
+                enviar: document.querySelector('#enviar'),
+                cancelar: document.querySelector('#cancelar')
+            };
+            var sender=document.querySelector('#taskPut');
+            var texto=document.querySelector('#txt1');
           
-            /*tabs.one.addEventListener('click', function(e) {
-              console.log(e.type + ' : ' + this.localName);
-            });*/
+            botons.enviar.addEventListener('click', function(e) {
+              sender.body= JSON.stringify({"text":texto.value ,"worker": "magni"});
+              sender.generateRequest();
+            });
 
            var pages = document.querySelector('iron-pages');
            var tabs = document.querySelector('paper-tabs');
@@ -116,6 +166,7 @@
           tabs.addEventListener('iron-select', function() { 
               pages.selected = tabs.selected;
           });
+ 
       }
 
     });

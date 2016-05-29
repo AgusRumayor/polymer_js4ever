@@ -7,7 +7,9 @@
     "iron-icon": "PolymerElements/iron-icon#^1.0.8",
     "iron-pages": "PolymerElements/iron-pages#^1.0.7",
     "paper-card": "PolymerElements/paper-card#^1.1.1",
-    "paper-input": "PolymerElements/paper-input#^1.1.11"
+    "paper-input": "PolymerElements/paper-input#^1.1.11",
+    "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^1.1.4",
+    "paper-dialog": "PolymerElements/paper-dialog#^1.0.4"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
