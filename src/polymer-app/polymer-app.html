@@ -2,6 +2,9 @@
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
 
 <dom-module id="polymer-app">
   <template>
@@ -20,7 +23,17 @@
       }
       iron-icon:hover {
         fill: var(--google-yellow-700);
-      }            
+      }  
+      .car-center {
+        width: 100%;
+        text-align: center;
+      } 
+
+      .big {
+        --iron-icon-height:64px;
+        --iron-icon-width:64px;
+      }  
+      
     </style>
       <paper-tabs noink nobar selected="0" selectedindex="0" id="paper_tabs" horizontal center layout>
         <paper-tab id="paper_tab" inline flex center-center horizontal layout active>
@@ -29,7 +42,22 @@
         <paper-tab id="paper_tab1" inline flex center-center horizontal layout>
             <iron-icon icon="timeline"></iron-icon>
         </paper-tab>
-      </paper-tabs>    
+      </paper-tabs> 
+
+      <iron-pages selected="0" id="iron-pages">
+          <div>
+            <section>
+              <paper-card heading="Card Title" class="car-center">
+                <iron-icon icon="face" class="big"></iron-icon>
+              </paper-card>
+               <paper-card class="car-center">
+                <paper-input label="Input label"></paper-input>
+              </paper-card>
+            </section>
+          </div>
+          <div>Page Two</div>
+      </iron-pages>
+
   </template>
 
   <script>
@@ -44,6 +72,27 @@
         },
       },
 
+      ready: function() {
+           /*var tabs = {
+                one: document.querySelector('#paper_tab'),
+                two: document.querySelector('#paper_tab1')
+            };*/
+          
+            /*tabs.one.addEventListener('click', function(e) {
+              console.log(e.type + ' : ' + this.localName);
+            });*/
+
+           var pages = document.querySelector('iron-pages');
+           var tabs = document.querySelector('paper-tabs');
+
+          tabs.addEventListener('iron-select', function() { 
+              pages.selected = tabs.selected;
+          });
+      }
+
     });
+
+
+
   </script>
 </dom-module>
