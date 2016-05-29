@@ -1,4 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
 <dom-module id="polymer-app">
   <template>
@@ -6,9 +9,27 @@
       :host {
         display: block;
       }
+      #paper_tabs {
+        color: rgb(255, 255, 255);
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 2px;
+        background-color: rgb(0, 188, 212);
+      }
+      iron-icon {
+        transition: all 0.2s;
+        -webkit-transition: all 0.2s;
+      }
+      iron-icon:hover {
+        fill: var(--google-yellow-700);
+      }            
     </style>
-    <h2>Hello [[prop1]]</h2>
-    <core-card id="core_card" layout vertical>Prueba de polymer</core-card>
+      <paper-tabs noink nobar selected="0" selectedindex="0" id="paper_tabs" horizontal center layout>
+        <paper-tab id="paper_tab" inline flex center-center horizontal layout active>
+            <iron-icon icon="list"></iron-icon>
+        </paper-tab>
+        <paper-tab id="paper_tab1" inline flex center-center horizontal layout>
+            <iron-icon icon="timeline"></iron-icon>
+        </paper-tab>
+      </paper-tabs>    
   </template>
 
   <script>
